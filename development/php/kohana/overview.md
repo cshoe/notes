@@ -19,7 +19,6 @@ Conventions:
 
 #### Examples
 
-- <class name> - <file path>
 - Controller_Template - ``classes/Controller/Template.php``
 - Model_User - ``classes/Model/User.php``
 - Database - ``classes/Database.php``
@@ -93,3 +92,56 @@ public function action_foobar()
 
 - execute code before and/or after an action is executed
 - could be used to check to see if a user is logged in or not
+
+    
+### Models
+
+- manages the behavior and data of the application domain
+
+#### Simple Model
+
+```php
+
+class Model_Post extends Model
+{
+    public function do_stuff()
+    {
+        // This is where you do domain logic...
+    }
+}
+```
+
+### Views
+
+- contain display information for your application
+- should be "dumb"
+
+#### Creating View Files
+
+- stored in ``views`` directory
+- Valid examples include:
+    - APPPATH/views/home.php
+    - APPPATH/views/pages/about.php
+    - APPPATH/views/products/details.php
+    - MODPATH/error/views/errors/404.php
+    - MODPATH/common/views/template.php
+
+#### Loading Views
+
+- typically loaded in a controller using the ``View::factory`` method
+- usually assigned to ``Request::$response`` or to another view
+
+```php
+public function action_about()
+{
+    $this->response->body(View::factory('pages/about'));
+}
+```
+
+When a view is assigned to a response body like above, it will be rendered when necessary. It can also be rendered by calling the ``View::render`` method or by type casting it to a ``string``.
+
+#### Variables
+
+- set and bind methods are available on a view
+    - bind works in a by reference fashion
+- variables can also be assigned directly to the view object (``$view->foo = 'bar'``)
